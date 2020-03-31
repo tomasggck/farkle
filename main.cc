@@ -6,7 +6,7 @@ using namespace std;
 int main() {
 	srand(time(0));
 	cout << "Hello World!\n";
-	cout<<" BALLS";
+	cout<<"one more gain";
 	Die d({.5,.1,.1,.1,.1,.1},6);
 	Die d2;
 	d.roll();
