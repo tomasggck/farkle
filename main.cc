@@ -1,15 +1,19 @@
-//Write your last name and your partner's name here
 //Garcia , Zamudio
 #include <iostream>
 #include<vector>
 #include "die.h"
+#include "player.h"
+
+
 using namespace std;
 
 
 int main() {
 	srand(time(0));
-	cout << "Hello World!\n";
 	vector<Die> playingDice;
+	vector<int> userKeep;
+	player One;
+
 	Die d1;
 	Die d2;
 	Die d3;
@@ -30,4 +34,15 @@ int main() {
 		cout<<"Die: "<< i <<" "<<playingDice.at(i).get_roll()<<endl;
 		}
 
+
+while (true){
+int keep=0;
+cout<<"Select a die to keep. Choose it again to unselect it.\n";
+cin>>keep;
+userKeep.push_back(playingDice.at(keep).get_roll());
+if(keep==1)
+break;
+
+}
+cout<<userKeep.at(0)<<endl;;
 }
