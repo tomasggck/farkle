@@ -9,7 +9,7 @@ using namespace std;
 class Table {
 vector<Die> sixFair;
 vector<Die> sixWeighted;
-int score;
+int curr_ score;
 int wagerUp;
 Player one;
 Player two;
@@ -24,4 +24,4 @@ public:
 
 
 
-;
+};

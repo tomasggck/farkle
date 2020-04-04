@@ -4,6 +4,16 @@
 
 using namespace std;
 
+Class Table {
+
+
+
+
+
+
+
+
+}:
 
 
 
