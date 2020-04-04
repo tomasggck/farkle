@@ -1,21 +1,25 @@
 #pragma once
 #include<iostream>
-
+#include "die.h"
 using namespace std;
 
-class player {
+class Player {
 	string name;
 	int score;
+	int moolah;	
+	int wager;
 
-
-public:
-player();
-void setName(string new_name);
-void setScore(int new_score);
-int getScore();
-std::string getName();
-
-
+	public:
+	Player();
+	void setName(string new_name);
+	void setScore(int new_score);
+	int getScore();
+	std::string getName();
+	void setMoolah(int cashOnly);
+	int getMoolah(){
+		return moolah;
+	}
+//void setRoll(vector<Die> &new_roll);	
 
 
 };

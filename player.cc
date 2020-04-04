@@ -3,17 +3,19 @@
 
 using namespace std;
 
-player::player (){
-name="";
-score=-1;
+Player::Player (){
+	name="";
+	score=-1;
 }
-void player:: setName(string new_name){
+void Player:: setName(string new_name){
 	name=new_name;
 }
-void player:: setScore(int new_score){
+void Player:: setScore(int new_score){
 	score= new_score;
 }
+string Player::getName(){
+	return name;
 
-
+}
 
 

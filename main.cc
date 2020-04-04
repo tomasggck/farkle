@@ -6,13 +6,14 @@
 
 
 using namespace std;
-
+ 
 
 int main() {
 	srand(time(0));
 	vector<Die> playingDice;
 	vector<int> userKeep;
-	player One;
+	Player One;
+ 
 
 	Die d1;
 	Die d2;
@@ -27,22 +28,22 @@ int main() {
 	playingDice.push_back(d5);
 	playingDice.push_back(d6);
 
-	
-	
+
+
 	for(int i=0; i< playingDice.size();i++){
 		playingDice.at(i).roll();
 		cout<<"Die: "<< i <<" "<<playingDice.at(i).get_roll()<<endl;
-		}
+	}
 
+//	table t( tomas, will, 2000, p1.dice, p2.dice)
+	while (true){
+		int keep=0;
+		cout<<"Select a die to keep. Choose it again to unselect it.\n";
+		cin>>keep;
+		userKeep.push_back(playingDice.at(keep).get_roll());
+	//	if(keep==1)
+			break;
 
-while (true){
-int keep=0;
-cout<<"Select a die to keep. Choose it again to unselect it.\n";
-cin>>keep;
-userKeep.push_back(playingDice.at(keep).get_roll());
-if(keep==1)
-break;
-
-}
-cout<<userKeep.at(0)<<endl;;
+	}
+	cout<<userKeep.at(0)<<endl;;
 }
