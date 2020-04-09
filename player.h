@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include "die.h"
+#include<vector>
 using namespace std;
 
 class Player {
@@ -8,6 +9,7 @@ class Player {
 	int score;
 	int moolah;	
 	int wager;
+	vector<Die> hand;
 
 	public:
 	Player();
@@ -15,11 +17,11 @@ class Player {
 	void setScore(int new_score);
 	int getScore();
 	std::string getName();
-	void setMoolah(int cashOnly);
-	int getMoolah(){
-		return moolah;
-	}
-//void setRoll(vector<Die> &new_roll);	
-
-
+	void setMoolah(int newMoolah);
+	int getMoolah();
+	void setRoll();	
+	vector<Die> getHand();
+	void loadHand();
+	void setPlayerDice(vector<Die> Dice);
+	void add(Die);
 };

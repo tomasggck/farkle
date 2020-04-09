@@ -5,7 +5,9 @@ using namespace std;
 
 Player::Player (){
 	name="";
-	score=-1;
+	score=0;
+	moolah=0;
+	vector<Die> hand{6};
 }
 void Player:: setName(string new_name){
 	name=new_name;
@@ -13,8 +15,44 @@ void Player:: setName(string new_name){
 void Player:: setScore(int new_score){
 	score= new_score;
 }
-string Player::getName(){
-	return name;
+string Player::getName(){return name;}
+int Player::getScore(){return score;}
+void Player::setMoolah(int newMoolah){
+	moolah=newMoolah;
+}
+int Player::getMoolah(){return moolah;}
+
+
+void Player::setRoll (){
+
+	for (Die &d: hand){
+		d.roll();
+			cout<<d.get_roll()<<endl;}
+}
+
+vector<Die> Player:: getHand() {return hand;}
+
+
+void Player::loadHand(){
+	Die One, Two, Three, Four, Five, Six;
+	hand.push_back(One);
+	hand.push_back(Two);
+	hand.push_back(Three);
+	hand.push_back(Four);
+	hand.push_back(Five);
+	hand.push_back(Six);
+}
+
+//void Player::getRoll(){}
+
+void Player:: setPlayerDice(vector<Die> Dice){
+        for(size_t i=0; i< Dice.size();i++)
+            hand.push_back(Dice.at(i));
+}
+
+void Player::add(Die d){
+	hand.push_back(d);
+
 
 }
 
