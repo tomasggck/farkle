@@ -36,21 +36,15 @@ int Table::getWagerUp(){return wagerUp;}
 vector<Die> Table::getTableHand(){return sixFair;}
 vector<Die> Table::getCheater(){return sixWeighted;}
 
-void Table:: setTableDice(vector<Die> Dice){
-		for(size_t i=0; i< Dice.size();i++)
-			sixFair.push_back(Dice.at(i));
-
-}
 void Table::loadTableHand(int howManyDice){
 	for(int i=0; i< howManyDice;i++){
 		Die curr;
-		sixFair.push_back(curr);
-	}
-
+		sixFair.push_back(curr);}
 }
+
 void Table::loadCheater(int howManyDice){
 	for(int i=0; i< howManyDice;i++){
-		Die cheat(vector<double>{.5,.0,.0, .0, .5,.0}, 6);
+		Die cheat(vector<double>{.4,.05,.1, .1, .3,.05}, 6);
 		sixWeighted.push_back(cheat);
 	}
 }
@@ -73,6 +67,7 @@ void Table::setRoll (){
 }
 void Table::clear(){
 sixFair.clear();
+sixWeighted.clear();
 }
 
 void Table::update(int diceUsed){
@@ -94,6 +89,11 @@ void Table::update(int diceUsed){
     sixFair.push_back(Six);
 */
 
+/*void Table:: setTableDice(vector<Die> Dice){
+		for(size_t i=0; i< Dice.size();i++)
+			sixFair.push_back(Dice.at(i));
+
+}*/
 
 
 

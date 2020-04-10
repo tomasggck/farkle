@@ -29,13 +29,14 @@ void Die::roll() {
    srand(rand());
 	vector<int> numbers{1,2,3,4,5,6};
     double rando=(rand() % 100 / 100.0);
-for(unsigned int i=0;i < numbers.size();i++){
-//	std::cout<<"weight at "<<i<< "is: "<<weight.at(i)<< "and rando is: "<<rando<<endl;
-	if(rando < weight.at(i)){
-		last_roll =numbers.at(i) ;
-			break;}
-	else
-		rando -= weight.at(i);
+
+	for(unsigned int i=0;i < numbers.size();i++){
+//		std::cout<<"weight at "<<i<< "is: "<<weight.at(i)<< "and rando is: "<<rando<<endl;
+			if(rando < weight.at(i)){
+				last_roll =numbers.at(i) ;
+					break;}
+			else
+				rando -= weight.at(i);
 }}
 /*	
 	double rnd = rand() + 1;

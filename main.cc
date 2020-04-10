@@ -95,34 +95,44 @@ void gameFunction(Table table, Player &currPlayer) {
 	bool hottDice=false;
 	char diceType;
 	bool cheater=true;
-	cout<<"Does "<<currPlayer.getName()<<" want to user cheater dice? (y or n)\n";
-		cin>>diceType;
-	if(diceType=='n' || diceType=='N'){
-	table.loadTableHand(DICE_REMAINING);//load table dice
-	cout << "Rolling Dice...  " << endl;
-	table.setRoll();
-	cheater=false;
+		
+while(true){	
+	cin>>diceType;
+	
+	if(diceType=='n' || diceType=='N'){//IF THEY WANT NORMAL DICE DO THIS
+		table.loadTableHand(DICE_REMAINING);//load table dice
+			cout << "Rolling Dice...  " << endl;
+				table.setRoll();
+					cheater=false;
+						break;
 	}
-	else if(diceType=='y' || diceType=='Y'){
-	table.loadCheater(DICE_REMAINING);//load table dice
-	cout << "Rolling Dice...  " << endl;
-	table.setCheatRoll();
-	cheater=true;	
+	
+	else if(diceType=='y' || diceType=='Y'){//IF THEY WANT CHEATER DICE DO THIS
+		table.loadCheater(DICE_REMAINING);//load table dice
+			cout << "Rolling Dice...  " << endl;
+				table.setCheatRoll();
+					cheater=true;
+						break;
 	}
-	else die();
+	
+	else 
+		cout<<"Y for yes, N for no.\nTry again\n";
+			continue;
+}
 	if(!cheater){
-	if (getScore(0, table.getTableHand()) == -1) {
-		cout << RED << "YOU FARKLED\n" << RESET;
-		playerTurnOver = true;
-		table.setScore(-5);//IF THEY FARKLE THEY LOSE ALL CURRENT POINTS
-		;
-	}}
+	
+		if (getScore(0, table.getTableHand()) == -1) {
+			cout << RED << "YOU FARKLED\n" << RESET;
+				playerTurnOver = true;
+					table.setScore(-5);//IF THEY FARKLE THEY LOSE ALL CURRENT POINTS	
+		}}
 	else if(cheater){
-	if (getScore(0, table.getCheater()) == -1) {
-		cout << RED << "YOU FARKLED\n" << RESET;
-		playerTurnOver = true;
-		table.setScore(-5);//IF THEY FARKLE THEY LOSE ALL CURRENT POINTS
-		;}}
+	
+		if (getScore(0, table.getCheater()) == -1) {
+			cout << RED << "YOU FARKLED\n" << RESET;
+				playerTurnOver = true;
+				table.setScore(-5);//IF THEY FARKLE THEY LOSE ALL CURRENT POINTS
+		}}
 
 
 	while (!playerTurnOver) {
@@ -136,14 +146,15 @@ void gameFunction(Table table, Player &currPlayer) {
 			for (int i = 0; i < iterator.size(); i++) {
 				if (iterator.at(i) == int(keep) - 48) { //dont load into player vector same dice 2x (same die not same die value)
 					cout << int(keep) - 48 << " has already been selected\n";
-					choosen = true;
+						choosen = true;
 				}
 			}
 			if (!choosen) {
+				if(!cheater){
 				if(int(keep-48) >= table.getTableHand().size()){//TO NOT SEGFAULT WHEN TRYING TO ACCESS DIE > VECTOR<DIE>
 					cout<<"Invalid option, try again\n";
-					continue;}
-				cout << GREEN << "Dice chosen: " << table.getTableHand().at(int(keep - 48)).get_roll() << endl << RESET;
+						continue;}
+							cout << GREEN << "Dice chosen: " << table.getTableHand().at(int(keep - 48)).get_roll() << endl << RESET;
 
 				iterator.push_back(int(keep) - 48); // what dice was chosen, make sure same dice isnt chosen again
 
@@ -153,33 +164,59 @@ void gameFunction(Table table, Player &currPlayer) {
 
 
 				currPlayer.add(table.getTableHand().at(int(keep - 48)));
-				diceChoosen++;  //KEEPING TRACK OF HOW MANY DICE HAVE BEEN SELECTED
-				int value = (table.getTableHand().at(int(keep - 48)).get_roll());
-				table.setScore(getScore((value), table.getTableHand()));// set the current score (using table class)
-				cout << BLUE << "Current score is: " << table.getScore() << endl << RESET;
+					diceChoosen++;  //KEEPING TRACK OF HOW MANY DICE HAVE BEEN SELECTED
+						int value = (table.getTableHand().at(int(keep - 48)).get_roll());
+							table.setScore(getScore((value), table.getTableHand()));// set the current score (using table class)
+								cout << BLUE << "Current score is: " << table.getScore() << endl << RESET;
 				//	cout<<"Player added: \n";
 //				for (size_t i = 0; i < currPlayer.getHand().size(); i++)
 					//		cout<< currPlayer.getHand().at(i).get_roll()<<endl;
 					continue;
+				}
+				else if(cheater){
+				
+					if(int(keep-48) >= table.getCheater().size()){//TO NOT SEGFAULT WHEN TRYING TO ACCESS DIE > VECTOR<DIE>
+						cout<<"Invalid option, try again\n";
+							continue;}
+								cout << GREEN << "Dice chosen: " << table.getCheater().at(int(keep - 48)).get_roll() << endl << RESET;
+
+									iterator.push_back(int(keep) - 48); // what dice was chosen, make sure same dice isnt chosen again
+
+				for (int i = 0; i < iterator.size(); i++)
+					//	cout<<"iterator choices are: "<<iterator.at(i)<<endl;
+
+
+
+				currPlayer.add(table.getCheater().at(int(keep - 48)));
+					diceChoosen++;  //KEEPING TRACK OF HOW MANY DICE HAVE BEEN SELECTED
+						int value = (table.getCheater().at(int(keep - 48)).get_roll());
+							table.setScore(getScore((value), table.getCheater()));// set the current score (using table class)
+								cout << BLUE << "Current score is: " << table.getScore() << endl << RESET;
+				//	cout<<"Player added: \n";
+//				for (size_t i = 0; i < currPlayer.getHand().size(); i++)
+					//		cout<< currPlayer.getHand().at(i).get_roll()<<endl;
+					continue;
+
+					}
 			}
 			choosen = false; //reset boolean otherwise wont load any dice after 1st time they choose the same dice
 			//}
 	}
 	else if (keep == 82 || keep == 114) { //IF THEY CHOOSE R(REROLL)
+		
 		if(iterator.size() <1) cout<<"You must choose at least 1 die to reroll\n";
 		//	continue;
 		else{
 			resetCounters();//Reset the 3-of-a-kind, 4-of-a-kind counters
-			cout << "Rerolling....\n# of dice chosen so far = " << diceChoosen << endl;
-			table.clear();//new set of dice
-			iterator.clear();// reset the vector that checks if they already chose a certain dice
-			table.loadTableHand(DICE_REMAINING - diceChoosen);	//subtract # of dice chosen from new roll
-
-			table.setRoll();
+				cout << "Rerolling....\n# of dice chosen so far = " << diceChoosen << endl;
+					table.clear();//new set of dice
+						iterator.clear();// reset the vector that checks if they already chose a certain dice
+							table.loadTableHand(DICE_REMAINING - diceChoosen);	//subtract # of dice chosen from new roll
+								table.setRoll();
 			if (getScore(0, table.getTableHand()) == -1) {
 				cout << RED << "YOU FARKLED\n" << RESET;
-				playerTurnOver = true;
-				table.setScore(-5);//IF THEY FARKLE THEY LOSE ALL CURRENT POINTS RESET TABLE SCORE TO 0
+					playerTurnOver = true;
+						table.setScore(-5);//IF THEY FARKLE THEY LOSE ALL CURRENT POINTS RESET TABLE SCORE TO 0
 			}
 		}
 		continue;
@@ -187,8 +224,8 @@ void gameFunction(Table table, Player &currPlayer) {
 
 
 	else if (keep == 80 || keep==112) { //if they want to finish and pass
-		cout <<	currPlayer.getName()<< " CHOOSES TO PASS.\n\n\n";
-		playerTurnOver = true;
+		cout <<	currPlayer.getName()<< " BANKS POINTS.\n\n";
+			playerTurnOver = true;
 	}
 
 	else
@@ -199,76 +236,106 @@ if(diceChoosen==hotDice && !playerTurnOver){
 	hottDice=true;
 }	
 currPlayer.setScore(table.getScore());
-cout << BOLDGREEN << currPlayer.getName() << "'s Score is: " << currPlayer.getScore() << endl << RESET;
-resetCounters();//Reset the 3-of-a-kind, 4-of-a-kind counters
+	cout << BOLDGREEN << currPlayer.getName() << "'s Score is: " << currPlayer.getScore() << endl << RESET;
+		resetCounters();//Reset the 3-of-a-kind, 4-of-a-kind counters
 }
 int main() {
 	srand(time(0));
-	//double rando=(double(rand() % 100) / 100);
-	//cout<<rando<<endl;
 	int howManyOnes = 0, howManyTwos = 0, howManyThrees = 0, howManyFours = 0, howManyFives = 0, howManySixes = 0;
 	Table t;
 	Player PlyOne, PlyTwo;
 	int pointLimit=0;
 	int wager=0;
 	cout << "Please enter how many points you will be playing to : " << endl;
-	cin>>pointLimit;
-	if(!cin)die();
+		cin>>pointLimit;
+			while(true){
+				if(!cin) die();
+					if (pointLimit < 0 || pointLimit > 100000){
+						cout<<"Invalid input, try again\n";
+							cin>>pointLimit;}
+
+						else 
+							break;
+							}	
 
 	cout << "Please enter Player 1's name " << endl;
-	string player1Name = "";
-	cin >> player1Name;
-	PlyOne.setName(player1Name);
+		string player1Name = "";
+			cin >> player1Name;
+				PlyOne.setName(player1Name);
+	
 	cout << "Please enter Player 1's starting money (1-1000)" << endl;
-	int player1StartMoney;
-	cin >> player1StartMoney;
-	if (!cin) die();
-	PlyOne.setMoolah(player1StartMoney);
+		int player1StartMoney=0;
+			cin >> player1StartMoney;
+						while(true){
+							if(!cin) die();
+								if ( player1StartMoney < 0 || player1StartMoney > 1000){
+									cout<<"Invalid input, try again\n";
+										cin>>player1StartMoney;}
+
+						else 
+							break;
+							}	
+				PlyOne.setMoolah(player1StartMoney);
 
 
 
 	cout << "Please enter Player 2's name " << endl;
-	string player2Name = "";
-	cin >> player2Name;
-	PlyTwo.setName(player2Name);
+		string player2Name = "";
+			cin >> player2Name;
+				PlyTwo.setName(player2Name);
+	
 	cout << "Please enter Player 2's starting money (1-1000)" << endl;
-	int player2StartMoney;
-	cin >> player2StartMoney;
-	if (!cin)die();
-	PlyTwo.setMoolah(player2StartMoney);
-	cout<<"Wager amount = \n";
-	cin>> wager;
-		if(!cin)die();
-	t.setWagerUp(wager);
+			int player2StartMoney;
+					cin >> player2StartMoney;
+						while(true){
+							if(!cin) die();
+								if ( player2StartMoney < 0 || player2StartMoney > 1000){
+									cout<<"Invalid input, try again\n";
+										cin>>player2StartMoney;}
+
+						else 
+							break;
+							}	
+								PlyTwo.setMoolah(player2StartMoney);
+	cout<<"WAGER AMOUNT = \n";
+		cin>> wager;
+				while(true){
+					if(!cin) die();
+						if ( wager > PlyTwo.getMoolah() || wager > PlyOne.getMoolah()){
+									cout<<"Can't bet more than the lowest player bank\nTry again.\n";
+										cin>>wager;}
+
+						else 
+							break;
+							}	
+				t.setWagerUp(wager);
 
 	
 	while (PlyOne.getScore() <pointLimit || PlyTwo.getScore() < pointLimit) {
-		cout << MAGENTA << PlyOne.getName() << "'S TURN\n\n\n" << RESET;
-		gameFunction(t, PlyOne);
-		if(PlyOne.getScore() >= pointLimit){
-			cout<< PlyOne.getName() <<" Wins!"<<endl;
-			PlyOne.setMoolah(PlyOne.getMoolah() + t.getWagerUp());
-			PlyTwo.setMoolah(PlyTwo.getMoolah() - t.getWagerUp());
-			cout<<PlyOne.getName()<<BOLDGREEN<< " has $ "<<PlyOne.getMoolah()<<endl<<RESET;
-			cout<<PlyTwo.getName()<< BOLDGREEN<<" has $ "<<PlyTwo.getMoolah()<<endl<<RESET;
-			break;}
+		
+		cout <<"\n"<< MAGENTA << PlyOne.getName() << "'S TURN\n\n" << RESET;
+		cout<<"Do you want to user cheater dice? (y or n)\n";
+			gameFunction(t, PlyOne);
+		
+			if(PlyOne.getScore() >= pointLimit){
+				cout<< PlyOne.getName() <<" Wins!"<<endl;
+					PlyOne.setMoolah(PlyOne.getMoolah() + t.getWagerUp());
+						PlyTwo.setMoolah(PlyTwo.getMoolah() - t.getWagerUp());
+							cout<<PlyOne.getName()<<BOLDGREEN<< " has $ "<<PlyOne.getMoolah()<<endl<<RESET;
+								cout<<PlyTwo.getName()<< BOLDGREEN<<" has $ "<<PlyTwo.getMoolah()<<endl<<RESET;
+									break;}
 
-		cout << MAGENTA << PlyTwo.getName() << "'S TURN\n\n\n" << RESET;
-		gameFunction(t, PlyTwo);
-		if(PlyTwo.getScore() >= pointLimit){
-			cout<< PlyTwo.getName() <<" Wins!"<<endl;
-			PlyTwo.setMoolah(PlyTwo.getMoolah() + t.getWagerUp());
-			PlyOne.setMoolah(PlyOne.getMoolah() - t.getWagerUp());
-			cout<<PlyOne.getName()<<BOLDGREEN<<" has $ "<<PlyOne.getMoolah()<<endl<<RESET;
-			cout<<PlyTwo.getName()<<BOLDGREEN<<" has $ "<<PlyTwo.getMoolah()<<endl<<RESET;
-			break;}
+		cout <<"\n"<< MAGENTA << PlyTwo.getName() << "'S TURN\n\n" << RESET;
+		cout<<"Do you want to user cheater dice? (y or n)\n";
+			gameFunction(t, PlyTwo);
+		
+			if(PlyTwo.getScore() >= pointLimit){
+				cout<< PlyTwo.getName() <<" Wins!"<<endl;
+					PlyTwo.setMoolah(PlyTwo.getMoolah() + t.getWagerUp());
+						PlyOne.setMoolah(PlyOne.getMoolah() - t.getWagerUp());
+							cout<<PlyOne.getName()<<BOLDGREEN<<" has $ "<<PlyOne.getMoolah()<<endl<<RESET;
+								cout<<PlyTwo.getName()<<BOLDGREEN<<" has $ "<<PlyTwo.getMoolah()<<endl<<RESET;
+									break;}
 
 	}
 }
-/*	int howManyOnes=0;
-	int howManyTwos=0;
-	int howManyThrees=0;
-	int howManyFours=0;
-	int howManyFives=0;
-	int howManySixes=0;
-	*/
