@@ -34,6 +34,7 @@ wagerUp=newWager;
 int Table::getWagerUp(){return wagerUp;}
 
 vector<Die> Table::getTableHand(){return sixFair;}
+vector<Die> Table::getCheater(){return sixWeighted;}
 
 void Table:: setTableDice(vector<Die> Dice){
 		for(size_t i=0; i< Dice.size();i++)
@@ -44,6 +45,13 @@ void Table::loadTableHand(int howManyDice){
 	for(int i=0; i< howManyDice;i++){
 		Die curr;
 		sixFair.push_back(curr);
+	}
+
+}
+void Table::loadCheater(int howManyDice){
+	for(int i=0; i< howManyDice;i++){
+		Die curr;
+		sixWeighted.push_back(curr);
 	}
 
 }

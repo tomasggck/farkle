@@ -93,10 +93,19 @@ void gameFunction(Table table, Player &currPlayer) {
 	bool playerTurnOver = false;	
 	int hotDice=0;	
 	bool hottDice=false;
-
-
-
-	table.loadTableHand(DICE_REMAINING);	//load table dice
+	char diceType;
+	bool cheater=true;
+	cout<<"Does "<<currPlayer.getName()<<" want to user cheater dice? (y or n)\n";
+		cin>>diceType;
+	if(diceType=='n' || diceType=='N'){
+	table.loadTableHand(DICE_REMAINING);//load table dice
+	cheater=false;
+	}
+	else if(diceType=='y' || diceType=='Y'){
+	table.loadCheater(DICE_REMAINING);//load table dice
+	cheater=true;	
+	}
+	else die();
 	cout << "Rolling Dice...  " << endl;
 	table.setRoll();
 	if (getScore(0, table.getTableHand()) == -1) {
@@ -140,7 +149,7 @@ void gameFunction(Table table, Player &currPlayer) {
 				table.setScore(getScore((value), table.getTableHand()));// set the current score (using table class)
 				cout << BLUE << "Current score is: " << table.getScore() << endl << RESET;
 				//	cout<<"Player added: \n";
-				for (size_t i = 0; i < currPlayer.getHand().size(); i++)
+//				for (size_t i = 0; i < currPlayer.getHand().size(); i++)
 					//		cout<< currPlayer.getHand().at(i).get_roll()<<endl;
 					continue;
 			}
@@ -185,8 +194,10 @@ cout << BOLDGREEN << currPlayer.getName() << "'s Score is: " << currPlayer.getSc
 resetCounters();//Reset the 3-of-a-kind, 4-of-a-kind counters
 }
 int main() {
-	int howManyOnes = 0, howManyTwos = 0, howManyThrees = 0, howManyFours = 0, howManyFives = 0, howManySixes = 0;
 	srand(time(0));
+	//double rando=(double(rand() % 100) / 100);
+	//cout<<rando<<endl;
+	int howManyOnes = 0, howManyTwos = 0, howManyThrees = 0, howManyFours = 0, howManyFives = 0, howManySixes = 0;
 	Table t;
 	Player PlyOne, PlyTwo;
 	int pointLimit=0;

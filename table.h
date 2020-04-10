@@ -18,12 +18,14 @@ public:
 Table();
 Table(Player, Player);
 vector<Die> getTableHand();
+vector<Die> getCheater();
 void setScore(int newScore);
 int getScore();
 void setWagerUp(int newWager);
 int getWagerUp();
 void setTableDice(vector<Die> Dice);
 void loadTableHand(int);
+void loadCheater(int);
 void setRoll();
 void clear();
 void update(int);

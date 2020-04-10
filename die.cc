@@ -1,5 +1,7 @@
 #include "die.h"
 #include <cassert>
+#include <time.h>
+#include <iostream>
 using namespace std;
 
 Die::Die() : SIDES(6), last_roll(0) {
@@ -25,6 +27,22 @@ int Die::get_roll() {
 }
 
 void Die::roll() {
-	//TODO: Implement weight system
-//for(int i=0;i < weight.size();i++){
-	last_roll = rand() % SIDES + 1;}
+   srand(rand());
+	vector<int> numbers{1,2,3,4,5,6};
+/*	
+	double rnd = rand() + 1;
+for(int i=0; i<numbers.size(); i++) {
+  if(rnd < weight.at(i))
+    last_roll= i+1;
+  rnd -= weight.at(i);
+}
+*/	//TODO: Implement weight system
+    double rando=(rand() % 100 / 100.0);
+for(unsigned int i=0;i < numbers.size();i++){
+//	std::cout<<"weight at "<<i<< "is: "<<weight.at(i)<< "and rando is: "<<rando<<endl;
+	if(rando < weight.at(i)){
+		last_roll =numbers.at(i) ;
+			break;}
+	else
+		rando -= weight.at(i);
+}}
