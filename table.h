@@ -27,6 +27,7 @@ void setTableDice(vector<Die> Dice);
 void loadTableHand(int);
 void loadCheater(int);
 void setRoll();
+void setCheatRoll();
 void clear();
 void update(int);
 //void remove(int);

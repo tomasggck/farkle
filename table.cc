@@ -50,11 +50,19 @@ void Table::loadTableHand(int howManyDice){
 }
 void Table::loadCheater(int howManyDice){
 	for(int i=0; i< howManyDice;i++){
-		Die curr;
-		sixWeighted.push_back(curr);
+		Die cheat(vector<double>{.5,.0,.0, .0, .5,.0}, 6);
+		sixWeighted.push_back(cheat);
 	}
-
 }
+void Table::setCheatRoll (){
+
+		int count=0;
+    for (Die &d: sixWeighted){
+        d.roll();
+            cout<<BOLDCYAN<<"Dice "<<count<<":  "<< d.get_roll()<<endl<<RESET;
+			count++;}
+}
+
 void Table::setRoll (){
 
 		int count=0;

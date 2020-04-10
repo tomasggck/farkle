@@ -99,21 +99,30 @@ void gameFunction(Table table, Player &currPlayer) {
 		cin>>diceType;
 	if(diceType=='n' || diceType=='N'){
 	table.loadTableHand(DICE_REMAINING);//load table dice
+	cout << "Rolling Dice...  " << endl;
+	table.setRoll();
 	cheater=false;
 	}
 	else if(diceType=='y' || diceType=='Y'){
 	table.loadCheater(DICE_REMAINING);//load table dice
+	cout << "Rolling Dice...  " << endl;
+	table.setCheatRoll();
 	cheater=true;	
 	}
 	else die();
-	cout << "Rolling Dice...  " << endl;
-	table.setRoll();
+	if(!cheater){
 	if (getScore(0, table.getTableHand()) == -1) {
 		cout << RED << "YOU FARKLED\n" << RESET;
 		playerTurnOver = true;
 		table.setScore(-5);//IF THEY FARKLE THEY LOSE ALL CURRENT POINTS
 		;
-	}
+	}}
+	else if(cheater){
+	if (getScore(0, table.getCheater()) == -1) {
+		cout << RED << "YOU FARKLED\n" << RESET;
+		playerTurnOver = true;
+		table.setScore(-5);//IF THEY FARKLE THEY LOSE ALL CURRENT POINTS
+		;}}
 
 
 	while (!playerTurnOver) {
