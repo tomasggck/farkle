@@ -21,6 +21,8 @@ Player tableTwo= two;
 
 
 void Table::setScore(int newScore){
+	if(newScore==-5) currScore=0;//IF FARKLE(USING -5 TO REPRESENT FARKLE) RESET TO 0 , OTHERWISE ADD TO PREVIOUS
+	else
 	currScore= currScore + newScore;
 
 }
@@ -43,15 +45,6 @@ void Table::loadTableHand(int howManyDice){
 		Die curr;
 		sixFair.push_back(curr);
 	}
-		/*
- Die One, Two, Three, Four, Five, Six;
-    sixFair.push_back(One);
-    sixFair.push_back(Two);
-    sixFair.push_back(Three);
-    sixFair.push_back(Four);
-    sixFair.push_back(Five);
-    sixFair.push_back(Six);
-*/
 
 }
 void Table::setRoll (){
@@ -75,6 +68,15 @@ void Table::update(int diceUsed){
 //void Table::remove(int location){
 //sixFair.erase(sixFair.begin()+ location); 
 //}
+		/*
+ Die One, Two, Three, Four, Five, Six;
+    sixFair.push_back(One);
+    sixFair.push_back(Two);
+    sixFair.push_back(Three);
+    sixFair.push_back(Four);
+    sixFair.push_back(Five);
+    sixFair.push_back(Six);
+*/
 
 
 

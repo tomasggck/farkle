@@ -25,3 +25,4 @@ class Player {
 	void setPlayerDice(vector<Die> Dice);
 	void add(Die);
 };
+

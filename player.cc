@@ -10,10 +10,12 @@ Player::Player (){
 	vector<Die> hand{6};
 }
 void Player:: setName(string new_name){
-	name=new_name;
+	for(size_t i=0;i < new_name.size();i++)
+		new_name.at(i)=toupper(new_name.at(i));
+		name=new_name;
 }
 void Player:: setScore(int new_score){
-	score= new_score;
+	score=score+ new_score;
 }
 string Player::getName(){return name;}
 int Player::getScore(){return score;}
@@ -34,6 +36,20 @@ vector<Die> Player:: getHand() {return hand;}
 
 
 void Player::loadHand(){
+	for(int i=0; i < 6;i++){
+		Die curr;
+	hand.push_back(curr);}
+}
+
+//void Player::getRoll(){}
+
+void Player:: setPlayerDice(vector<Die> Dice){
+        for(size_t i=0; i< Dice.size();i++)
+            hand.push_back(Dice.at(i));}
+
+void Player::add(Die d){
+	hand.push_back(d);}
+/*
 	Die One, Two, Three, Four, Five, Six;
 	hand.push_back(One);
 	hand.push_back(Two);
@@ -41,19 +57,4 @@ void Player::loadHand(){
 	hand.push_back(Four);
 	hand.push_back(Five);
 	hand.push_back(Six);
-}
-
-//void Player::getRoll(){}
-
-void Player:: setPlayerDice(vector<Die> Dice){
-        for(size_t i=0; i< Dice.size();i++)
-            hand.push_back(Dice.at(i));
-}
-
-void Player::add(Die d){
-	hand.push_back(d);
-
-
-}
-
-
+*/

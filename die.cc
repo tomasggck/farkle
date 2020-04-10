@@ -26,5 +26,5 @@ int Die::get_roll() {
 
 void Die::roll() {
 	//TODO: Implement weight system
-	last_roll = rand() % SIDES + 1;
-}
+//for(int i=0;i < weight.size();i++){
+	last_roll = rand() % SIDES + 1;}
